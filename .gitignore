@@ -1,0 +1,4 @@
+/keys/web/*
+/keys/worker/*
+!/keys/web/.gitkeep
+!/keys/worker/.gitkeep
