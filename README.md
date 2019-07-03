@@ -8,8 +8,11 @@
 
 ```
 PS> ./keys/generate.ps1
-:
-:
+wrote private key to /keys/session_signing_key
+wrote private key to /keys/tsa_host_key
+wrote ssh public key to /keys/tsa_host_key.pub
+wrote private key to /keys/worker_key
+wrote ssh public key to /keys/worker_key.pub
 PS> run.ps1
 ```
 
@@ -17,8 +20,11 @@ PS> run.ps1
 
 ```
 $ ./keys/generate.sh
-:
-:
+wrote private key to /keys/session_signing_key
+wrote private key to /keys/tsa_host_key
+wrote ssh public key to /keys/tsa_host_key.pub
+wrote private key to /keys/worker_key
+wrote ssh public key to /keys/worker_key.pub
 $ ./run.sh
 ```
 
