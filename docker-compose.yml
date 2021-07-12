@@ -1,14 +1,25 @@
 version: '3'
 
 services:
+  nexus:
+    image: sonatype/nexus3
+    container_name: nexus
+    volumes:
+      - ./nexus-data:/nexus-data
+    ports:
+      - 8081:8081
+      - 8082:8082
+
   concourse-db:
     image: postgres
     container_name: db
+    volumes:
+      - ./postgresql-data:/var/lib/postgresql/data
     environment:
     - POSTGRES_DB=concourse
     - POSTGRES_PASSWORD=concourse_pass
     - POSTGRES_USER=concourse_user
-    - PGDATA=/database
+    - PGDATA=/var/lib/postgresql/data/pgdata
 
   concourse-web:
     image: concourse/concourse
@@ -30,12 +41,13 @@ services:
     - CONCOURSE_EXTERNAL_URL=${CONCOURSE_EXTERNAL_URL}
     - CONCOURSE_BASIC_AUTH_USERNAME=concourse
     - CONCOURSE_BASIC_AUTH_PASSWORD=concourse
-    - CONCOURSE_ADD_LOCAL_USER=admin:admin
+    - CONCOURSE_ADD_LOCAL_USER=admin:admin,local:local
     - CONCOURSE_MAIN_TEAM_ALLOW_ALL_USERS=true
-    - CONCOURSE_MAIN_TEAM_LOCAL_USER=admin
+    - CONCOURSE_MAIN_TEAM_LOCAL_USER=admin,local
 
   concourse-worker:
     image: concourse/concourse
+    container_name: worker
     command: worker
     privileged: true
     restart: always
@@ -45,8 +57,3 @@ services:
     environment:
     - CONCOURSE_TSA_HOST=concourse-web:2222
     - CONCOURSE_GARDEN_NETWORK
-
-networks:
-  default:
-    external:
-      name: common_link

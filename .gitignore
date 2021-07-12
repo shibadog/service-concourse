@@ -1,7 +1,13 @@
 /keys/web/*
-/keys/worker/*
 !/keys/web/.gitkeep
+/keys/worker/*
 !/keys/worker/.gitkeep
+/keys/vault/*
+!/keys/vault/.gitkeep
+/nexus-data/**
+!/nexus-data/.gitkeep
+/postgresql-data/**
+!/postgresql-data/.gitkeep
 
 /.added_env
 /.env
