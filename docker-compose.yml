@@ -4,20 +4,23 @@ services:
   nexus:
     image: sonatype/nexus3
     container_name: nexus
+    restart: always
     volumes:
       - ./nexus-data:/nexus-data
     ports:
       - 8081:8081
       - 8082:8082
+      - 8083:8083
     expose:
       - 8081
       - 8082
+      - 8083
 
   concourse-db:
     image: postgres
     container_name: db
     volumes:
-      - ./postgresql-data:/var/lib/postgresql/data
+      - ./postgresql-data:/var/lib/postgresql/data:rw
     environment:
       - POSTGRES_DB=concourse
       - POSTGRES_PASSWORD=concourse_pass
@@ -52,7 +55,6 @@ services:
 
   concourse-worker:
     image: concourse/concourse
-    container_name: worker
     command: worker
     privileged: true
     restart: always
